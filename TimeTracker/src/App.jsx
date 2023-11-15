@@ -2,28 +2,22 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { LoadActivities } from './ActivitiesDisplay'
 import ActivitiesDisplay from './ActivitiesDisplay'
+import UsernameInput from './Login'
 function App() {
-  const [count, setCount] = useState(0)
+  const [userIDLoaded, setUserIDLoaded] = useState((false))
+  const [userID, setUserID] = useState("652e19c767289a75d06ffaee")
+  console.log("hello")
+
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        {UsernameInput(setUserIDLoaded, setUserID)}
       </div>
-      <h1>Vite + React</h1>
       <div className="card">
-        {ActivitiesDisplay("652e19c767289a75d06ffaee")}
+        {ActivitiesDisplay(userIDLoaded, userID)}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }

@@ -6,7 +6,7 @@ const USERS_EXTENSION = "/users"
 const USERNAME_EXTENSION = "/username"
 const END_SLASH = "/"
 
-export default function UsernameInput(setUserIDLoaded, setExternalUserID) {
+export default function UsernameInput(setUserIDLoaded, setExternalUserID, userIDLoaded) {
     const[username, setUsername] = useState("")
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -17,22 +17,23 @@ export default function UsernameInput(setUserIDLoaded, setExternalUserID) {
                     setUserIDLoaded(true)
                 })
     }
-    return (    
-        <form onSubmit ={handleSubmit}>
-            <input 
-                name = "username"
-                type = "text"
-                onChange = {(e) => setUsername(e.target.value)}
-            />
-            <button type="submit">Log In</button>
-        </form>
-    )
+    if (!userIDLoaded) {
+        return (    
+            <form onSubmit ={handleSubmit}>
+                <input 
+                    name = "username"
+                    type = "text"
+                    onChange = {(e) => setUsername(e.target.value)}
+                />
+                <button type="submit">Log In</button>
+            </form>
+        )
+    }
 } 
 
 
 
 export async function loadUserID(username) {
-    console.log(API_URL + USERS_EXTENSION + USERNAME_EXTENSION + END_SLASH + username)
     const response = await fetch(API_URL + USERS_EXTENSION + USERNAME_EXTENSION + END_SLASH + username, {
         headers: {
             'Content-Type': 'application/json;charset=UTF-8'

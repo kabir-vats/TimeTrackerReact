@@ -14,10 +14,9 @@ export async function loadActivities(userID) {
     return await activities
 }
 
-export default function ActivitiesDisplay(userIDLoaded, userID) {
+export default function ActivitiesDisplay(userIDLoaded, userID, popupOpen) {
     const[activities, setActivities] = useState([]);
     useEffect(() => {
-            console.log("made it")
             if (userIDLoaded) {
                 let mounted = true;
                 loadActivities(userID)
@@ -28,14 +27,14 @@ export default function ActivitiesDisplay(userIDLoaded, userID) {
                     })
                 return () => mounted = false;
             }
-    }, [userIDLoaded]);
+    }, [userIDLoaded, popupOpen]);
     
     if (userIDLoaded) {
         const activityButtons = activities.map(activity => ActivityButton(activity))
         return (
-            <ButtonGroup>
-                {activityButtons}
-            </ButtonGroup> 
+                <ButtonGroup>
+                    {activityButtons}
+                </ButtonGroup> 
             )
     }
 }
